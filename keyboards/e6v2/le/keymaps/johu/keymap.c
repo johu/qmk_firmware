@@ -1,9 +1,10 @@
 #include QMK_KEYBOARD_H
 
 #define _BL 0
-#define _FL 1
-#define _SL 2
-#define _CL 3
+#define _GL 1
+#define _FL 2
+#define _SL 3
+#define _CL 4
 
 // Tap dance defines
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
@@ -22,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------------------------+
  * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | Shift/Ent | FN  |
  * |-----------------------------------------------------------------------------------------+
- *           |LGUI | LAlt  |               Space                   | RAlt   |RGUI |
+ *           |LGUI | LAlt  |               Space                   | RAlt   | GL  |
  *           `--------------------------------------------------------------------'
  */
   [_BL] = LAYOUT_60_hhkb(
@@ -30,7 +31,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       HPR_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
       CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          SFT_ENT, MO(_FL),
-               KC_LGUI, KC_LALT,                       KC_SPFN,                        KC_RALT, KC_RGUI
+               KC_LGUI, KC_LALT,                       KC_SPFN,                        KC_RALT, TG(_GL)
+      ),
+
+/* Layer 1: Game layer
+ * ,-----------------------------------------------------------------------------------------.
+ * | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |  \  |  `  |
+ * |-----------------------------------------------------------------------------------------+
+ * |   Tab   |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |  Bksp |
+ * |-----------------------------------------------------------------------------------------+
+ * | Ctrl      |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter  |
+ * |-----------------------------------------------------------------------------------------+
+ * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | Shift     | FN  |
+ * |-----------------------------------------------------------------------------------------+
+ *           |     | LAlt  |               Space                   | RAlt   |     |
+ *           `--------------------------------------------------------------------'
+ */
+  [_GL] = LAYOUT_60_hhkb(
+      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
+      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
+      KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, MO(_FL),
+               KC_NO,   KC_LALT,                       KC_SPC,                         KC_RALT, TG(_GL)
       ),
 
 /* Layer 1: FN Layer
@@ -43,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------------------------+
  * |           | Prev| Play| Next|     |     | +   | -   | End  |PgDn| Down|           |     |
  * |-----------------------------------------------------------------------------------------+
- *           |       |       |                                    | Stop  |  CL   |
+ *           |       |       |                                    | Stop  |  GL   |
  *           `--------------------------------------------------------------------'
  */
   [_FL] = LAYOUT_60_hhkb(
@@ -51,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   _______, KC_DEL,
        _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, _______,
        _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN,          _______, _______,
-                _______, _______,                       _______,                        KC_MSTP, MO(_CL)
+                _______, _______,                       _______,                        KC_MSTP, TG(_GL)
       ),
 
 /* Layer 2: Space FN Layer
@@ -64,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |-----------------------------------------------------------------------------------------+
 * |           | Prev| Play| Next|     |     | Home| End |     |     |     |           |     |
 * |-----------------------------------------------------------------------------------------+
-*            |       |       |                                    |       |  CL   |
+*            |       |       |                                    |       |  GL   |
 *            `--------------------------------------------------------------------'
 */
   [_SL] = LAYOUT_60_hhkb(
@@ -72,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, KC_PGUP, _______, KC_PGDN, _______, _______, _______, KC_DEL,
       _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,
       _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_HOME, KC_END,  _______, _______, _______,          _______, _______,
-               _______, _______,                        _______,                       _______, MO(_CL)
+               _______, _______,                        _______,                       _______, TG(_GL)
       ),
 
 /* Layer 3: Control Layer
